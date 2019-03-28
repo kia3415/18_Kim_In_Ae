@@ -1,0 +1,72 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		FastScanner scan = new FastScanner();
+		int count = scan.nextInt();
+		int[] n = new int[count];
+		int[][][] tri = new int[count][][];
+		int[][][] sum = new int[count][][];
+		for (int i = 0; i < count; i++) {
+			n[i] = scan.nextInt();
+			tri[i] = new int[n[i]][n[i]];
+			sum[i] = new int[n[i]][n[i]];
+			for (int j = 0; j < n[i]; j++) {
+				for (int k = 0; k < j+1; k++) {
+					tri[i][j][k] = scan.nextInt();
+					sum[i][j][k] = 0;
+				}
+			}
+		}
+		int[] max =new int[count];
+		for (int i = 0; i < count; i++) {
+			for (int j = 1; j < n[i]; j++) {
+				tri[i][j][0] += tri[i][j - 1][0];
+				tri[i][j][j] += tri[i][j - 1][j - 1];
+				for (int k = 1; k < j; k++) {
+					tri[i][j][k] += (tri[i][j-1][k] > tri[i][j-1][k-1]) ? tri[i][j-1][k] : tri[i][j-1][k-1];
+				}
+			}
+			for(int j=0;j<n[i];j++) {
+				max[i] = (max[i]<tri[i][n[i]-1][j]) ? tri[i][n[i]-1][j] : max[i];
+			}
+			System.out.println(max[i]);
+		}
+
+	}
+
+	static class FastScanner {
+		BufferedReader in;
+		StringTokenizer st;
+
+		public FastScanner() {
+			in = new BufferedReader(new InputStreamReader(System.in));
+		}
+
+		public String next() {
+			while (st == null || !st.hasMoreTokens()) {
+				try {
+					String temp = in.readLine();
+					if (temp == null)
+						return null;
+					st = new StringTokenizer(temp);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return st.nextToken();
+		}
+
+		public int nextInt() {
+			return Integer.parseInt(next());
+		}
+
+	}
+
+}
