@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class TestMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		int x = scan.nextInt();
+		int y = scan.nextInt();
+		int z = y/x, count = 0;
+		if(y%x != 0) {
+			System.out.println("-1");
+			return;
+		}
+		while(true) {
+			if(z == 1) {
+				System.out.println(count);
+				break;
+			}
+			else if(z % 2 == 0) {
+				count++;
+				z = z/2;
+			}else if(z % 3 == 0) {
+				count++;
+				z = z/3;
+			}else {
+				System.out.println("-1");
+				break;
+			}
+		}
+	}
+}
