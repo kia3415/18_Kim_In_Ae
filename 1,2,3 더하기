@@ -1,0 +1,24 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int main() {
+	int t;
+	cin >> t;
+	int cases[12];
+	cases[1] = 1;
+	cases[2] = 2;
+	cases[3] = 4;
+	for (int i = 4; i < 12; i++) {
+		cases[i] = cases[i - 1] + cases[i - 2] + cases[i - 3];
+	}
+	int* n = new int[t];
+	for (int i = 0; i < t; i++) {
+		cin >> n[i];
+	}
+	for (int i = 0; i < t; i++) {
+		cout << cases[n[i]] << endl;
+	}
+	return 0;
+}
+
