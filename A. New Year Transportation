@@ -1,0 +1,23 @@
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+ 
+	int n, t;
+	cin >> n >> t;
+	int*path = new int[n-1];
+	for (int i = 0; i < n-1; i++) {
+		cin >> path[i];
+	}
+	int start = 0;
+	while (start < n-1) {
+		//cout << "start : " << start << endl;
+		start = start + path[start];
+		if (start == t - 1) {
+			cout << "YES" << endl;
+			return 0;
+		}
+	}
+	cout << "NO" << endl;
+	return 0;
+}
