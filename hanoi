@@ -1,0 +1,32 @@
+#include<iostream>
+#include<string>
+#include<vector>
+using namespace std;
+
+vector<pair<int, int>> v;
+
+void hanoi(int n, int a, int b, int c) {
+	string str = "";
+	if (n == 1) {
+		v.push_back({ a, c }); // n 이 1이라면 a->c 이동
+	}
+	else {
+		hanoi(n - 1, a, c, b); // a->b 원반 이동
+		v.push_back({ a, c }); // a->c 원반 이동
+		hanoi(n - 1, b, a, c); // b->c 원반 이동
+	}
+
+}
+
+int main() {
+	int input; // 원반의 개수 입력
+	cin >> input;
+
+	hanoi(input, 1, 2, 3); // 1->3 으로 원반 이동
+
+	printf("%d\n", v.size()); // 이동 횟수 출력
+	for (int i = 0; i < v.size(); i++) {
+		printf("%d %d\n", v[i].first, v[i].second); // 이동한 순서대로 출력
+	}
+	return 0;
+}
