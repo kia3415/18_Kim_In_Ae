@@ -1,0 +1,45 @@
+#include<iostream>
+#include<string>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int n;
+int weight[16][16];
+
+int tsp(vector<bool>& visited, int now, int length,int size) {
+	if (size >= n)
+		return weight[now][0] ? length + weight[now][0] : 987654321;
+
+	int ret = 987654321;
+
+	for (int i = 0; i < n; i++) {
+		if (visited[i] == false && weight[now][i] != 0) {
+			visited[i] = true;
+			ret = min(ret, tsp(visited, i, length + weight[now][i], size+1));
+			visited[i] = false;
+		}
+	}
+
+	return ret;
+}
+
+int main() {
+	cin >> n;
+
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> weight[i][j];
+		}
+	}
+
+	vector<bool> visited; // 방문 체크
+	visited.assign(n, false);
+	visited[0] = true;
+
+	vector<int> path; // 경로 저장
+	path.push_back(0);
+	cout << tsp(visited, 0, 0, 1) << endl;
+
+	return 0;
+}
+
